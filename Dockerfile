@@ -5,6 +5,8 @@ LABEL stage=build-stage
 WORKDIR /tmp/server
 COPY package.json yarn.lock ./
 COPY src/client/package.json src/client/yarn.lock ./src/client/
+# https://github.com/yarnpkg/yarn/issues/8242
+RUN yarn config set network-timeout 300000
 RUN yarn install --frozen-lockfile
 
 COPY . ./
